@@ -14,12 +14,12 @@ class App extends Component {
         <Route exact path='/'>
           <Home />
         </Route>
-        <Route path='/about'>
-          <About />
-        </Route>
-        <Route path='/users'>
-          <Users />
-        </Route>
+        <Route path='/about' component={About} />
+        <Route
+          path='/users/:ship'
+          render={ (props) =>(
+          <Users {...props} name="this is my awaesome Users component" />) }
+        />
       </BrowserRouter>
     );
   }
