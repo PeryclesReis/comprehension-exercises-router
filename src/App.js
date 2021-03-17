@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Home from './components/Home';
 import About from './components/About';
 import Users from './components/Users';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import StrictAccess from './components/StrictAccess';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -11,15 +12,26 @@ class App extends Component {
         <Link to='/'>Home</Link>
         <Link to='/about'>About</Link>
         <Link to='/users'>Users</Link>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route path='/about'>
-          <About />
-        </Route>
-        <Route path='/users'>
-          <Users />
-        </Route>
+        <Link to="/strict-access">Strict Access</Link>
+        <Switch>
+          <Route
+            path='/users/:ship'
+            render={ (props) => (
+              <Users {...props} name="this is my awaesome Users component" />
+              )
+            }
+          />
+          <Route path='/about' component={About} />
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route
+            path="/strict-access"
+            render={ () => (
+              <StrictAccess user={ { username: 'joao', password: '1234' } } />
+            )}
+          />
+        </Switch>
       </BrowserRouter>
     );
   }
