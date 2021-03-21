@@ -5,33 +5,37 @@ import Users from './components/Users';
 import StrictAccess from './components/StrictAccess';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
+
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Link to='/'>Home</Link>
-        <Link to='/about'>About</Link>
-        <Link to='/users'>Users</Link>
-        <Link to="/strict-access">Strict Access</Link>
+      <BrowserRouter >
         <Switch>
           <Route
-            path='/users/:ship'
-            render={ (props) => (
-              <Users {...props} name="this is my awaesome Users component" />
-              )
-            }
+            path="/users/:id"
+            render={(props) =>(
+              <Users {...props}
+              greetingMessage="Good Morning"
+              />
+            )}
           />
-          <Route path='/about' component={About} />
-          <Route exact path='/'>
+          <Route path="/about" >
+            <About />
+          </Route>
+          <Route exact path="/" >
             <Home />
           </Route>
           <Route
-            path="/strict-access"
-            render={ () => (
-              <StrictAccess user={ { username: 'joao', password: '1234' } } />
+            path="/strict-acess/"
+            render={(props) => (
+              <StrictAccess {...props} user={{username: 'joao', password: '1234'}} />
             )}
           />
         </Switch>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/strict-acess">Acesso restrito</Link>
       </BrowserRouter>
     );
   }
